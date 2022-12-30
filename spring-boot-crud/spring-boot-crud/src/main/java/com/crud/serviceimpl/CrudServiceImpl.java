@@ -13,16 +13,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-
 import com.crud.dto.IUsersDto;
 import com.crud.dto.UsersDto;
 import com.crud.entity.Users;
 import com.crud.exception.UsersNotFoundException;
 import com.crud.repository.Repositorys;
 import com.crud.service.CrudService;
-
+  
 @Service
-public  class CrudServiceImpl implements CrudService {
+public class CrudServiceImpl implements CrudService {
 
 	@Autowired
 	private Repositorys repository;
@@ -45,7 +44,7 @@ public  class CrudServiceImpl implements CrudService {
 
 	@Override
 	public UsersDto getByIdfromDto(long id) {
-		Users users = repository.findById(id).orElseThrow(()->new UsersNotFoundException());
+		Users users = repository.findById(id).orElseThrow(() -> new UsersNotFoundException());
 
 		UsersDto usersDto = new UsersDto();
 		usersDto.setId(users.getId());
@@ -63,16 +62,15 @@ public  class CrudServiceImpl implements CrudService {
 
 	@Override
 	public void deleteUser(long id) {
-		  repository.deleteById(id);
+		repository.deleteById(id);
 //
-	
-	}
 
+	}
 
 	@Override
 	public String updateUser(Users user, long id) throws Exception {
 
-		Users user1 = repository.findById(id).orElseThrow(()-> new UsersNotFoundException());
+		Users user1 = repository.findById(id).orElseThrow(() -> new UsersNotFoundException());
 //		 user1.setId(user.getId()); // we cannot  change id because id is a primary key
 		user1.setName(user.getName());
 		user1.setEmail(user.getEmail());
@@ -103,27 +101,6 @@ public  class CrudServiceImpl implements CrudService {
 //
 //	}
 
-	public List<UsersDto> getPagingDto(int pageNo, int pageSize) {
-		Pageable page = PageRequest.of(pageNo - 1, pageSize);
-		List<UsersDto> user = getAllDto();
 
-		Page<UsersDto> p = new PageImpl<UsersDto>(user, page, user.size());
-
-		List<UsersDto> S = p.getContent();
-		return S;
-	}
-
-	@Override
-	public List<Users> getAll() {
-		// TODO Auto-generated method stub
-		return repository.findAll();
-	}
-
- 
 
 }
-
-	
-
-	
-

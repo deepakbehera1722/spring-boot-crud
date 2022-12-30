@@ -12,8 +12,6 @@ public interface CrudService { // naming format
 
 	public String addUser(Users user);
 
-	public List<Users> getAll();
-
 	List<UsersDto> getAllDto();
 
 	public void deleteUser(long id);
@@ -23,8 +21,5 @@ public interface CrudService { // naming format
 	Page<IUsersDto> findAllwithPage(String search, String from, String to);
 
 	public UsersDto getByIdfromDto(long id);
-	    
-
-
 
 }

@@ -2,6 +2,11 @@ package com.crud.exception;
 
 public class UsersNotFoundException extends RuntimeException{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public UsersNotFoundException() {
 		// TODO Auto-generated constructor stub
 	}

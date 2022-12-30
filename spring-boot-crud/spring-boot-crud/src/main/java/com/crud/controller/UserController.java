@@ -1,7 +1,5 @@
 package com.crud.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.crud.dto.IUsersDto;
-import com.crud.dto.ResponseDto;
-import com.crud.dto.UsersDto;
+import com.crud.dto.*;
 import com.crud.entity.Users;
-import com.crud.exception.UsersNotFoundException;
+
 import com.crud.serviceimpl.CrudServiceImpl;
 
 @RestController
@@ -48,32 +44,32 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public UsersDto getbyId(@PathVariable long id) throws Exception {
-		return crudServiceImpl.getByIdfromDto(id);
+	public ResponseEntity<?> getbyId(@PathVariable long id) throws Exception {
+		UsersDto usres = crudServiceImpl.getByIdfromDto(id);
+		return new ResponseEntity<>(new Sucessdto("Sucesss", "sucess", usres), HttpStatus.OK);
+
 	}
 
 	// Add data
 	@PostMapping() // avoid that type
 	public ResponseEntity<?> addData(@Valid @RequestBody Users user) {
 		crudServiceImpl.addUser(user);
-		return new ResponseEntity<>(new ResponseDto(" Succesfully","Added Users"), HttpStatus.CREATED);
+		return new ResponseEntity<>(new ErrorDto(" Succesfully", "Added Users"), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateData(@Valid @RequestBody Users user, @PathVariable long id) throws Exception {
-	
-			crudServiceImpl.updateUser(user, id);
-		
-		return new ResponseEntity<>(new ResponseDto(" Successfully", "Updated User"), HttpStatus.OK);
+
+		crudServiceImpl.updateUser(user, id);
+
+		return new ResponseEntity<>(new ErrorDto(" Successfully", "Updated User"), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteData(@PathVariable long id) 
-	{
+	public ResponseEntity<?> deleteData(@PathVariable long id) {
 		crudServiceImpl.deleteUser(id);
-		return new ResponseEntity<>(new ResponseDto("Successfully","Deleted User"),HttpStatus.OK);
-		
-	}
+		return new ResponseEntity<>(new ErrorDto("Successfully", "Deleted User"), HttpStatus.OK);
 
+	}
 
 }

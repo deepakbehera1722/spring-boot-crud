@@ -1,10 +1,14 @@
 package com.onetoone.serviceimpl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.onetoone.entity.Laptop;
 import com.onetoone.entity.Student;
 import com.onetoone.repositorys.StudentsRepository;
 import com.onetoone.service.StudentService;
@@ -26,7 +30,11 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Student addStudent(Student student) {
 		// TODO Auto-generated method stub
-		return studentsRepository.save(student);
+		Student s=new Student();
+		s.setName(student.getName());
+		s.setAge(student.getAge());
+		s.setLaptops(new ArrayList<>(student.getLaptops()));
+		return studentsRepository.save(s);
 	}
 
 	@Override
@@ -41,6 +49,7 @@ public class StudentServiceImpl implements StudentService {
 		Student s = studentsRepository.findById(id).orElseThrow(() -> new Exception("id dosn't exit"));
 		s.setAge(student.getAge());
 		s.setName(student.getName());
+		s.setLaptops(new ArrayList<>(student.getLaptops()));
 		return studentsRepository.save(s);
 
 	}

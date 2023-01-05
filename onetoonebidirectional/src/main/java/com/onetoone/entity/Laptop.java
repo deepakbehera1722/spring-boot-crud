@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 
 
@@ -19,12 +19,11 @@ import javax.persistence.Table;
 public class Laptop  {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private int laptopId;
  private String laptopName;
  private String modelNo;
- @OneToOne(mappedBy = "laptops")
- private Student student;
+
 public int getLaptopId() {
 	return laptopId;
   }

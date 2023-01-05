@@ -1,12 +1,19 @@
 package com.onetoone.entity;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+
 import javax.persistence.Table;
 
 @Entity
@@ -17,9 +24,9 @@ public class Student {
 	private int id;
 	private String name;
 	private String age;
-	 @OneToOne(cascade = CascadeType.MERGE)
-	 @JoinColumn(name="laptop_id")
-	private Laptop laptops;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "lapid")
+	private List<Laptop> laptops = new ArrayList<>();
 
 	public int getId() {
 		return id;
@@ -41,29 +48,29 @@ public class Student {
 		return age;
 	}
 
-	public Student() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Student(int id, String name, String age, Laptop laptop) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.age = age;
-		this.laptops = laptop;
-	}
-
 	public void setAge(String age) {
 		this.age = age;
 	}
 
-	public Laptop getLaptops() {
+	public List<Laptop> getLaptops() {
 		return laptops;
 	}
 
-	public void setLaptop(Laptop laptops) {
+	public void setLaptops(List<Laptop> laptops) {
 		this.laptops = laptops;
+	}
+
+	public Student(int id, String name, String age, List<Laptop> laptops) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.laptops = laptops;
+	}
+
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 }
